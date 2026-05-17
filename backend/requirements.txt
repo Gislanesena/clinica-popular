@@ -1,0 +1,35 @@
+# requirements.txt — lista de bibliotecas Python que a API precisa instalar
+#
+# É OBRIGATÓRIO para rodar o projeto: sem ele, pip não sabe o que instalar.
+# Uso: pip install -r requirements.txt   (ou o Docker faz isso no build)
+#
+# --- Servidor web ---
+fastapi==0.115.6              # Framework da API REST
+uvicorn[standard]==0.32.1     # Servidor que executa a API (porta 8000)
+#
+# --- Banco de dados ---
+sqlalchemy==2.0.36            # ORM: Python <-> SQLite (clinica.db)
+motor==3.6.0                  # Cliente assíncrono MongoDB (logs)
+pymongo==4.9.2                # Dependência do motor
+#
+# --- Validação e configuração ---
+pydantic==2.10.3              # Valida JSON de entrada/saída
+pydantic-settings==2.6.1      # Lê variáveis do .env
+#
+# --- Autenticação ---
+python-jose[cryptography]==3.3.0  # Tokens JWT
+passlib[bcrypt]==1.7.4            # Hash de senhas
+bcrypt==4.2.1
+#
+# --- Machine Learning (predições na fila e agendamento) ---
+pandas==2.2.3
+scikit-learn==1.5.2
+joblib==1.4.2
+#
+# --- Utilitários ---
+python-multipart==0.0.17      # Upload de formulários
+httpx==0.28.1                 # Cliente HTTP (testes)
+#
+# --- Testes (opcional em produção, útil em desenvolvimento) ---
+pytest==8.3.4
+pytest-asyncio==0.24.0

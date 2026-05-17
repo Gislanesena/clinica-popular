@@ -1,0 +1,29 @@
+# Orquestra os serviços do projeto (API + MongoDB para logs)
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/nosql/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongodata:/data/db
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # Banco principal em SQLite (arquivo SQL local)
+      DATABASE_URL: sqlite:////app/data/clinica.db
+      MONGODB_URL: mongodb://mongo:27017
+      SECRET_KEY: chave-dev-clinica-popular
+    depends_on:
+      mongo:
+        condition: service_started
+    volumes:
+      - ./backend/data:/app/data
+
+volumes:
+  mongodata:
